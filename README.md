@@ -1,0 +1,76 @@
+# venmo-mcp
+
+An MCP server that exposes Venmo functionality to AI assistants like [Claude Code](https://claude.ai/code). Built with [FastMCP](https://github.com/jlowin/fastmcp) and the unofficial [venmo-api](https://github.com/mmber01/venmo-api) Python library.
+
+## Tools
+
+| Tool | Description |
+|------|-------------|
+| `search_users` | Search for Venmo users by name or username |
+| `send_money` | Send money to a user (supports privacy settings and funding source selection) |
+| `request_money` | Request money from a user |
+| `get_payment_methods` | List available payment methods (balance, bank accounts, cards) |
+| `get_friends` | List the authenticated user's friends |
+| `get_my_profile` | Get the authenticated user's profile |
+
+## Prerequisites
+
+- [Pixi](https://pixi.sh) (dependency manager)
+- A Venmo account
+
+## Setup
+
+1. Clone this repo:
+
+   ```bash
+   git clone https://github.com/aaymeloglu/venmo-mcp.git
+   cd venmo-mcp
+   ```
+
+2. Authenticate with Venmo:
+
+   ```bash
+   pixi run auth
+   ```
+
+   This prompts for your Venmo username and password. Venmo will likely send a 2FA code via SMS -- enter it when prompted. On success, the access token is saved to `.venmo-token`. The token does not expire unless manually revoked.
+
+3. Add to your Claude Code MCP config (`.mcp.json`):
+
+   ```json
+   {
+     "mcpServers": {
+       "venmo": {
+         "type": "stdio",
+         "command": "pixi",
+         "args": [
+           "run",
+           "--manifest-path",
+           "/path/to/venmo-mcp/pixi.toml",
+           "python",
+           "/path/to/venmo-mcp/server.py"
+         ]
+       }
+     }
+   }
+   ```
+
+   Replace `/path/to/venmo-mcp` with the actual path to your clone.
+
+## Running standalone
+
+```bash
+pixi run serve
+```
+
+## Token management
+
+The access token is stored in `.venmo-token` (gitignored). To re-authenticate, delete the file and run `pixi run auth` again.
+
+## Security
+
+This server can send real money. Use with appropriate caution. The token file is created with `0600` permissions (owner-only read/write).
+
+## License
+
+MIT
