@@ -2,6 +2,7 @@
 
 import json
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP
@@ -10,6 +11,45 @@ from venmo_api import Client, PaymentPrivacy
 TOKEN_FILE = Path(__file__).parent / ".venmo-token"
 
 mcp = FastMCP("venmo")
+
+
+def _epoch_to_iso(value) -> str | None:
+    """Venmo returns epoch-second strings. Format as UTC ISO (YYYY-MM-DD HH:MM:SSZ)."""
+    if value in (None, ""):
+        return None
+    try:
+        dt = datetime.fromtimestamp(int(value), tz=timezone.utc)
+        return dt.strftime("%Y-%m-%d %H:%M:%SZ")
+    except (ValueError, TypeError, OSError):
+        return str(value)
+
+
+def _user_brief(user) -> dict | None:
+    if not user:
+        return None
+    return {"id": user.id, "username": user.username, "display_name": user.display_name}
+
+
+def _serialize_txn(t, my_id) -> dict:
+    """Flatten a Transaction into a JSON-friendly dict, with a direction relative to me."""
+    actor_id = t.actor.id if t.actor else None
+    # payment_type "pay": actor pays target. "charge": actor requests money from target.
+    if t.payment_type == "charge":
+        direction = "you_requested" if actor_id == my_id else "requested_from_you"
+    else:  # "pay"
+        direction = "sent" if actor_id == my_id else "received"
+    return {
+        "id": t.id,
+        "date": _epoch_to_iso(t.date_created),
+        "type": t.payment_type,
+        "direction": direction,
+        "amount": t.amount,
+        "note": t.note,
+        "status": t.status,
+        "audience": t.audience,
+        "actor": _user_brief(t.actor),
+        "target": _user_brief(t.target),
+    }
 
 
 def get_client() -> Client:
@@ -124,6 +164,42 @@ def get_friends(limit: int = 50) -> str:
                 "display_name": f.display_name,
             }
         )
+    return json.dumps(results, indent=2)
+
+
+@mcp.tool()
+def get_transactions(
+    limit: int = 20,
+    with_user_id: str = "",
+    note_contains: str = "",
+    before_id: str = "",
+) -> str:
+    """List your recent Venmo transactions (payments and requests), newest first.
+
+    Use this to check payment history — e.g. "did I already pay X?" or "find the cleaning payment".
+    Each entry includes date (UTC), amount, note, status, payment type, the other party, and a
+    `direction` relative to you: "sent", "received", "you_requested", or "requested_from_you".
+
+    - with_user_id: only transactions between you and this user (from search_users/get_friends).
+    - note_contains: case-insensitive substring filter on the note (applied after fetch).
+    - before_id: pass a transaction id to page to older results.
+    """
+    client = get_client()
+    my_id = client.my_profile().id
+    before = before_id or None
+    if with_user_id:
+        page = client.user.get_transaction_between_two_users(
+            user_id_one=my_id, user_id_two=with_user_id, limit=limit, before_id=before
+        )
+    else:
+        page = client.user.get_user_transactions(
+            user_id=my_id, limit=limit, before_id=before
+        )
+    txns = list(page) if page else []
+    results = [_serialize_txn(t, my_id) for t in txns]
+    if note_contains:
+        needle = note_contains.lower()
+        results = [r for r in results if r["note"] and needle in r["note"].lower()]
     return json.dumps(results, indent=2)
 
 
