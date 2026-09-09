@@ -1,6 +1,6 @@
 [workspace]
 name = "venmo-mcp"
-version = "0.1.0"
+version = "0.2.0"
 description = "Venmo MCP server for Claude Code"
 channels = ["conda-forge"]
 platforms = ["osx-arm64", "osx-64", "linux-64", "linux-aarch64"]
@@ -12,7 +12,7 @@ pytest = ">=9.0.3,<10"
 
 [pypi-dependencies]
 venmo-api = "==0.3.1"
-mcp = "==1.26.0"
+mcp = "==2.2.0"
 
 [tasks]
 serve = "python server.py"
