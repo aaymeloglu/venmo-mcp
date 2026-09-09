@@ -1,6 +1,6 @@
 # venmo-mcp
 
-An MCP server that exposes Venmo functionality to AI assistants like [Claude Code](https://claude.ai/code). Built with [FastMCP](https://github.com/jlowin/fastmcp) and the unofficial [venmo-api](https://github.com/mmber01/venmo-api) Python library.
+An MCP server that exposes Venmo functionality to AI assistants like [Claude Code](https://claude.ai/code). Built with the official [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) (`MCPServer`) and the unofficial [venmo-api](https://github.com/mmber01/venmo-api) Python library.
 
 ## Tools
 
