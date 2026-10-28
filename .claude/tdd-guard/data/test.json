@@ -1,0 +1,199 @@
+{
+  "testModules": [
+    {
+      "moduleId": "tests/test_get_transactions.py",
+      "tests": [
+        {
+          "name": "test_default_uses_user_transactions",
+          "fullName": "tests/test_get_transactions.py::test_default_uses_user_transactions",
+          "state": "passed"
+        },
+        {
+          "name": "test_with_user_id_routes_to_between_two_users",
+          "fullName": "tests/test_get_transactions.py::test_with_user_id_routes_to_between_two_users",
+          "state": "passed"
+        },
+        {
+          "name": "test_note_contains_filters_case_insensitively",
+          "fullName": "tests/test_get_transactions.py::test_note_contains_filters_case_insensitively",
+          "state": "passed"
+        },
+        {
+          "name": "test_note_contains_no_match_returns_empty",
+          "fullName": "tests/test_get_transactions.py::test_note_contains_no_match_returns_empty",
+          "state": "passed"
+        },
+        {
+          "name": "test_limit_and_before_id_are_passed_through",
+          "fullName": "tests/test_get_transactions.py::test_limit_and_before_id_are_passed_through",
+          "state": "passed"
+        },
+        {
+          "name": "test_empty_before_id_becomes_none",
+          "fullName": "tests/test_get_transactions.py::test_empty_before_id_becomes_none",
+          "state": "passed"
+        },
+        {
+          "name": "test_direction_reflects_authenticated_user",
+          "fullName": "tests/test_get_transactions.py::test_direction_reflects_authenticated_user",
+          "state": "passed"
+        }
+      ]
+    },
+    {
+      "moduleId": "tests/test_helpers.py",
+      "tests": [
+        {
+          "name": "test_known_epoch_formats_as_utc",
+          "fullName": "tests/test_helpers.py::TestEpochToIso::test_known_epoch_formats_as_utc",
+          "state": "passed"
+        },
+        {
+          "name": "test_accepts_int",
+          "fullName": "tests/test_helpers.py::TestEpochToIso::test_accepts_int",
+          "state": "passed"
+        },
+        {
+          "name": "test_none_and_empty_return_none",
+          "fullName": "tests/test_helpers.py::TestEpochToIso::test_none_and_empty_return_none",
+          "state": "passed"
+        },
+        {
+          "name": "test_garbage_falls_back_to_str",
+          "fullName": "tests/test_helpers.py::TestEpochToIso::test_garbage_falls_back_to_str",
+          "state": "passed"
+        },
+        {
+          "name": "test_none_user",
+          "fullName": "tests/test_helpers.py::TestUserBrief::test_none_user",
+          "state": "passed"
+        },
+        {
+          "name": "test_brief_fields",
+          "fullName": "tests/test_helpers.py::TestUserBrief::test_brief_fields",
+          "state": "passed"
+        },
+        {
+          "name": "test_pay_as_actor_is_sent",
+          "fullName": "tests/test_helpers.py::TestSerializeTxnDirection::test_pay_as_actor_is_sent",
+          "state": "passed"
+        },
+        {
+          "name": "test_pay_as_target_is_received",
+          "fullName": "tests/test_helpers.py::TestSerializeTxnDirection::test_pay_as_target_is_received",
+          "state": "passed"
+        },
+        {
+          "name": "test_charge_as_actor_is_you_requested",
+          "fullName": "tests/test_helpers.py::TestSerializeTxnDirection::test_charge_as_actor_is_you_requested",
+          "state": "passed"
+        },
+        {
+          "name": "test_charge_as_target_is_requested_from_you",
+          "fullName": "tests/test_helpers.py::TestSerializeTxnDirection::test_charge_as_target_is_requested_from_you",
+          "state": "passed"
+        },
+        {
+          "name": "test_flattens_all_fields",
+          "fullName": "tests/test_helpers.py::TestSerializeTxnShape::test_flattens_all_fields",
+          "state": "passed"
+        }
+      ]
+    },
+    {
+      "moduleId": "tests/test_pending_requests.py",
+      "tests": [
+        {
+          "name": "test_payment_id_accepts_numeric_string",
+          "fullName": "tests/test_pending_requests.py::test_payment_id_accepts_numeric_string",
+          "state": "passed"
+        },
+        {
+          "name": "test_payment_id_rejects_non_numeric",
+          "fullName": "tests/test_pending_requests.py::test_payment_id_rejects_non_numeric",
+          "state": "passed"
+        },
+        {
+          "name": "test_venmo_api_returns_parsed_body",
+          "fullName": "tests/test_pending_requests.py::test_venmo_api_returns_parsed_body",
+          "state": "passed"
+        },
+        {
+          "name": "test_venmo_api_raises_on_error_payload",
+          "fullName": "tests/test_pending_requests.py::test_venmo_api_raises_on_error_payload",
+          "state": "passed"
+        },
+        {
+          "name": "test_venmo_api_raises_on_non_json",
+          "fullName": "tests/test_pending_requests.py::test_venmo_api_raises_on_non_json",
+          "state": "passed"
+        },
+        {
+          "name": "test_get_pending_requests_returns_only_pending_charges_to_me",
+          "fullName": "tests/test_pending_requests.py::test_get_pending_requests_returns_only_pending_charges_to_me",
+          "state": "passed"
+        },
+        {
+          "name": "test_get_pending_requests_respects_limit",
+          "fullName": "tests/test_pending_requests.py::test_get_pending_requests_respects_limit",
+          "state": "passed"
+        },
+        {
+          "name": "test_complete_request_approves_and_returns_result",
+          "fullName": "tests/test_pending_requests.py::test_complete_request_approves_and_returns_result",
+          "state": "passed"
+        },
+        {
+          "name": "test_complete_request_rejects_non_numeric_before_api",
+          "fullName": "tests/test_pending_requests.py::test_complete_request_rejects_non_numeric_before_api",
+          "state": "passed"
+        },
+        {
+          "name": "test_deny_request_denies",
+          "fullName": "tests/test_pending_requests.py::test_deny_request_denies",
+          "state": "passed"
+        }
+      ]
+    },
+    {
+      "moduleId": "tests/test_tool_contract.py",
+      "tests": [
+        {
+          "name": "test_send_money_success_returns_structured_result",
+          "fullName": "tests/test_tool_contract.py::test_send_money_success_returns_structured_result",
+          "state": "passed"
+        },
+        {
+          "name": "test_send_money_failure_raises_tool_error",
+          "fullName": "tests/test_tool_contract.py::test_send_money_failure_raises_tool_error",
+          "state": "passed"
+        },
+        {
+          "name": "test_request_money_failure_raises_tool_error",
+          "fullName": "tests/test_tool_contract.py::test_request_money_failure_raises_tool_error",
+          "state": "passed"
+        },
+        {
+          "name": "test_invalid_privacy_rejected_before_any_api_call",
+          "fullName": "tests/test_tool_contract.py::test_invalid_privacy_rejected_before_any_api_call",
+          "state": "passed"
+        },
+        {
+          "name": "test_non_numeric_user_id_rejected_before_any_api_call",
+          "fullName": "tests/test_tool_contract.py::test_non_numeric_user_id_rejected_before_any_api_call",
+          "state": "passed"
+        },
+        {
+          "name": "test_missing_token_is_a_tool_error",
+          "fullName": "tests/test_tool_contract.py::test_missing_token_is_a_tool_error",
+          "state": "passed"
+        },
+        {
+          "name": "test_every_tool_declares_annotations_and_output_schema",
+          "fullName": "tests/test_tool_contract.py::test_every_tool_declares_annotations_and_output_schema",
+          "state": "passed"
+        }
+      ]
+    }
+  ]
+}

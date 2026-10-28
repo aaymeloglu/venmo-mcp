@@ -1,0 +1,12 @@
+{
+  "session_id": "f1811c4b-3ed1-4ac2-afa6-8184f1a60858",
+  "transcript_path": "/Users/Akseldkw/.claude-personal/projects/-Users-Akseldkw-coding-venmo-mcp/f1811c4b-3ed1-4ac2-afa6-8184f1a60858.jsonl",
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Edit",
+  "tool_input": {
+    "file_path": "/Users/Akseldkw/coding/venmo-mcp/server.py",
+    "old_string": "def get_client() -> Client:\n    token = os.environ.get(\"VENMO_ACCESS_TOKEN\")\n    if not token and TOKEN_FILE.exists():\n        data = json.loads(TOKEN_FILE.read_text())\n        token = data.get(\"access_token\")\n    if not token:\n        raise ToolError(\n            \"No Venmo access token. Run `pixi run auth` first or set VENMO_ACCESS_TOKEN.\"\n        )\n    return Client(access_token=token)",
+    "new_string": "def get_client() -> Client:\n    return Client(access_token=_access_token())",
+    "replace_all": false
+  }
+}

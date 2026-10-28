@@ -78,9 +78,11 @@ def test_every_tool_declares_annotations_and_output_schema():
     assert names == {
         "search_users", "send_money", "request_money", "get_payment_methods",
         "get_friends", "get_transactions", "get_my_profile",
+        "get_pending_requests", "complete_request", "deny_request",
     }
+    write_tools = {"send_money", "request_money", "complete_request", "deny_request"}
     for t in tools:
         assert t.annotations is not None, t.name
         assert t.output_schema is not None, t.name
-        expected_read_only = t.name not in {"send_money", "request_money"}
+        expected_read_only = t.name not in write_tools
         assert t.annotations.read_only_hint is expected_read_only, t.name
